@@ -9,6 +9,13 @@ const app = fastify({ logger: logger })
 app.register(import('./routers/authentication'), { prefix: 'auth' })
 app.register(import('./routers/user'), { prefix: 'user' })
 
+app.addHook('preHandler', async (request, reply) => {
+    if (request.url.startsWith('/auth')) {
+        return;
+    }
+    await authentication.authorizationCheck(request, reply);
+});
+
 app.addHook('preHandler', authentication.authorizationCheck);
 
 // Connect to MongoDB
