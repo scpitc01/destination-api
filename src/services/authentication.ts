@@ -14,12 +14,13 @@ class AuthenticationService {
     }
 
     public async authorizationCheck(request: FastifyRequest, reply: FastifyReply): Promise<void> {
-        if (true) {
-            console.log("Authorized Hooray!");
-        } else {
-            console.log("Unauthorized. Please log in.");
-            reply.code(401).send({ error: 'Unauthorized' });
+        try {
+            const token = request.headers.authorization?.replace('Bearer ', '') as string
+            const decoded = jwt.verify(token, this.key)
+        } catch (err) {
+            reply.status(401).send({ message: 'User unauthorized.' });
         }
+
     }
 
     public async hashPassword(password: string, salt: string): Promise<string> {

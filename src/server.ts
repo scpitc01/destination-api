@@ -16,8 +16,6 @@ app.addHook('preHandler', async (request, reply) => {
     await authentication.authorizationCheck(request, reply);
 });
 
-app.addHook('preHandler', authentication.authorizationCheck);
-
 // Connect to MongoDB
 mongoose.connect(config.get('mongoUri'));
 
