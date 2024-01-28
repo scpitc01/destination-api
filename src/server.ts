@@ -3,14 +3,26 @@ import authentication from './services/authentication'
 import logger from './services/logger'
 import config = require('config')
 import mongoose from 'mongoose'
+import fastifySwagger from '@fastify/swagger'
+import fastifySwaggerUi from "@fastify/swagger-ui";
+
 
 const app = fastify({ logger: logger })
+
+app.register(fastifySwagger, JSON.parse(JSON.stringify(config.get('swagger'))));
+
+const swaggerUiOptions = {
+    routePrefix: "/docs",
+    exposeRoute: true,
+};
+
+app.register(fastifySwaggerUi, swaggerUiOptions);
 
 app.register(import('./routers/authentication'), { prefix: 'auth' })
 app.register(import('./routers/user'), { prefix: 'user' })
 
 app.addHook('preHandler', async (request, reply) => {
-    if (request.url.startsWith('/auth')) {
+    if (request.url.startsWith('/auth') || request.url.startsWith('/docs')) {
         return;
     }
     await authentication.authorizationCheck(request, reply);

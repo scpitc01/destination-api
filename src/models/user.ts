@@ -13,7 +13,7 @@ const userSchema = new Schema<User>({
     username: { type: String, required: true },
     password: { type: String, required: true },
     email: { type: String },
-    active: { type: Boolean, required: true },
+    active: { type: Boolean, required: true, default: true },
     salt: { type: String, required: true }
 });
 

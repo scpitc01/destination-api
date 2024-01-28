@@ -1,4 +1,30 @@
 {
     "mongoUri": "mongodb+srv://admin:wowSGp1pOH85TyPB@destination-api-uofl.iet1ria.mongodb.net/destination",
-    "secretKey": "6a7cec18-44ca-482e-b0a1-55ee8ba7f970"
+    "secretKey": "6a7cec18-44ca-482e-b0a1-55ee8ba7f970",
+    "swagger": {
+        "swagger": {
+            "info": {
+                "title": "Destination-Api",
+                "description": "Application designed to give user recommendation off previous experiences.",
+                "version": "1.0.0"
+            },
+            "host": "localhost:3000",
+            "schemes": [
+                "http",
+                "https"
+            ],
+            "consumes": [
+                "application/json"
+            ],
+            "produces": [
+                "application/json"
+            ],
+            "tags": [
+                {
+                    "name": "Default",
+                    "description": "Default"
+                }
+            ]
+        }
+    }
 }
