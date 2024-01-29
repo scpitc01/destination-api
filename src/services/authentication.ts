@@ -32,12 +32,20 @@ class AuthenticationService {
         return inputPassword === hashedPassword
     }
 
-    // Function to create a JWT
-    createJWT(userId: string): string {
+    /**
+     * Creates the JWT that will be used for authorization when requests are send back to the api. 
+     * @param {string} username  The string that user chose to represent themselves in the system. 
+     * @returns {string} The jwt token that returns the authorization for the user.
+     */
+    createJWT(username: string): string {
         const expiresIn = '30m'; // Token expiration time (e.g., 1 hour)
-        return jwt.sign({ userId }, this.key, { expiresIn });
+        return jwt.sign({ username }, this.key, { expiresIn });
     }
 
+    /**
+     * Generate the salt that we use to hash the password as we put it in the database. 
+     * @returns {Promise<string>} saltString Returns the string we are using the hash the users password with. 
+     */
     async generateSalt() {
         return bcrypt.genSalt(this.saltRounds);
     }

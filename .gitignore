@@ -3,6 +3,7 @@ node_modules/
 
 # Output of compilation
 dist/
+coverage/
 
 # macOS
 .DS_Store

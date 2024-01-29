@@ -1,0 +1,4 @@
+{
+    "mongoUri": "mongodb+srv://user:pass@destination-api-uofl.iet1ria.mongodb.net/destination",
+    "secretKey": "TestValue"
+}
