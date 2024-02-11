@@ -5,18 +5,20 @@ import config = require('config')
 import mongoose from 'mongoose'
 import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUi from "@fastify/swagger-ui";
+import fastifyCors from '@fastify/cors'
 
 
 const app = fastify({ logger: logger })
-
-app.register(fastifySwagger, JSON.parse(JSON.stringify(config.get('swagger'))));
 
 const swaggerUiOptions = {
     routePrefix: "/docs",
     exposeRoute: true,
 };
 
+app.register(fastifySwagger, JSON.parse(JSON.stringify(config.get('swagger'))));
 app.register(fastifySwaggerUi, swaggerUiOptions);
+app.register(fastifyCors);
+
 
 app.register(import('./routers/authentication'), { prefix: 'auth' })
 app.register(import('./routers/user'), { prefix: 'user' })
