@@ -13,6 +13,11 @@ class AuthenticationService {
         this.key = key
     }
 
+    /**
+     * You send in a stringified jwt and it should return a objectified jwt if its still valid. 
+     * @param {string} jwtToken A parsed and and minified signed jwt. 
+     * @returns {JwtPayload} A unminified jwt. 
+     */
     private parseJwt(token: string): JwtPayload {
         const decoded = jwt.verify(token, this.key) as JwtPayload
         if (decoded.iat && decoded.exp && decoded.exp < decoded.iat) {
@@ -21,6 +26,11 @@ class AuthenticationService {
         return decoded
     }
 
+    /**
+     * Should check if the bearer token for the request sent into the api is valid.
+     * @param {FastifyRequest} request Requests from fasitify coming in.
+     * @param {FastifyReply} reply Replys to send back to the requester. 
+     */
     public async authorizationCheck(request: FastifyRequest, reply: FastifyReply): Promise<void> {
         try {
             const token = request.headers.authorization?.replace('Bearer ', '') as string
@@ -33,14 +43,31 @@ class AuthenticationService {
         }
     }
 
+    /**
+     * You send in a stringified jwt and it should return a objectified jwt if its still valid. 
+     * @param {string} jwtToken A parsed and and minified signed jwt. 
+     * @returns {JwtPayload} A unminified jwt. 
+     */
     public returnParsedJwt(jwtToken: string): JwtPayload {
         return this.parseJwt(jwtToken)
     }
 
+    /**
+     * Generates the hash and salted password for later user. 
+     * @param {string} password The password for the user. 
+     * @param {string} salt The salt that was generated to hash the password to be more secure. 
+     * @returns {Promise<string>} Returns the hashed and salted password to be compared later or stored in the database.
+     */
     public async hashPassword(password: string, salt: string): Promise<string> {
         return bcrypt.hash(password, salt);
     }
 
+    /**
+     * Compares the passed in password and the one from the database if they match we return true. 
+     * @param {string} inputPassword Password that the user passed in we are going to compare. 
+     * @param {string} hashedPassword Password that we retrieved from the database to compare against. 
+     * @returns {bool} Returns a true or false value based off the if the password is the same. 
+     */
     public verifyPassword(inputPassword: string, hashedPassword: string): boolean {
         return inputPassword === hashedPassword
     }
