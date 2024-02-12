@@ -27,7 +27,13 @@ app.addHook('preHandler', async (request, reply) => {
     if (request.url.startsWith('/auth') || request.url.startsWith('/docs')) {
         return;
     }
-    await authentication.authorizationCheck(request, reply);
+    try {
+        const token = request.headers.authorization?.replace('Bearer ', '') as string
+        await authentication.authorizationCheck(token);
+    }
+    catch (err) {
+        reply.status(401).send({ message: 'User unauthorized.' });
+    }
 });
 
 // Connect to MongoDB

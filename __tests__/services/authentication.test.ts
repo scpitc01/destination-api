@@ -1,13 +1,15 @@
 import authenticationService from '../../src/services/authentication'
 import jwt, { JwtPayload } from "jsonwebtoken"
-import config from 'config'
-import { FastifyRequest } from 'fastify';
-import { HTTPRequestPart, ValidationFunction } from 'fastify/types/request';
-import { Socket } from 'dgram';
-import { IncomingMessage } from 'http';
+
 
 describe('Authentication Service', () => {
     let AuthenticationService = authenticationService
+
+    it('authorizationCheck should not throw an error if the token is valid', async () => {
+        const jwtToken = AuthenticationService.createJWT('User')
+        const authorized = await AuthenticationService.authorizationCheck(jwtToken)
+        expect(authorized).toBeTruthy()
+    })
 
     it('returnParsedJwt should return a valid and useable jwt token ', async () => {
         const jwtToken = AuthenticationService.createJWT('User')
@@ -16,7 +18,8 @@ describe('Authentication Service', () => {
     })
 
     it('hashPassword should return a password that has been hashed. ', async () => {
-        const hashedPassword = AuthenticationService.hashPassword("Password", "Hash")
+        const salt = await AuthenticationService.generateSalt()
+        const hashedPassword = AuthenticationService.hashPassword("Password", salt)
         expect("Password").not.toEqual(hashedPassword)
     })
 

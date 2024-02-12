@@ -31,15 +31,15 @@ class AuthenticationService {
      * @param {FastifyRequest} request Requests from fasitify coming in.
      * @param {FastifyReply} reply Replys to send back to the requester. 
      */
-    public async authorizationCheck(request: FastifyRequest, reply: FastifyReply): Promise<void> {
+    public async authorizationCheck(token: string): Promise<boolean> {
         try {
-            const token = request.headers.authorization?.replace('Bearer ', '') as string
             const decoded = this.parseJwt(token)
-            if (!decoded.userId || decoded.userId === "") {
+            if (!decoded.username || decoded.username === "") {
                 throw new Error("No user found.")
             }
+            return true
         } catch (err) {
-            reply.status(401).send({ message: 'User unauthorized.' });
+            throw err
         }
     }
 
