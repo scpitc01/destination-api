@@ -65,3 +65,17 @@ export const loginPostRequest = {
         },
     },
 };
+
+export const tokenValidationGetRequest = {
+    description: 'Authentication Token Validation Request',
+    tags: ['Authentication'],
+    response: {
+        200: {
+            description: 'Successful response',
+            type: 'object',
+            properties: {
+                username: { type: 'string' }
+            }
+        },
+    },
+};

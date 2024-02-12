@@ -17,4 +17,18 @@ export default async function (app: FastifyInstance) {
 
         return jwt ? reply.send({ token: jwt }) : reply.status(401).send({ message: 'Wrong username and password combination.' });
     })
+
+    app.get('/token/valid', async (request: FastifyRequest, reply: FastifyReply) => {
+        const token = request?.headers?.authorization
+        if (!token) {
+            reply.status(401).send({ message: 'No token was sent in.' })
+        }
+        try {
+            return await UserController.validateToken(token ?? "")
+        }
+        catch (err) {
+            reply.status(401).send({ message: 'There was an issue with verifying the token.' })
+        }
+
+    })
 }

@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken"
+import jwt, { JwtPayload } from "jsonwebtoken"
 import config from "config";
 
 class AuthenticationService {
@@ -13,21 +13,34 @@ class AuthenticationService {
         this.key = key
     }
 
+    private parseJwt(token: string): JwtPayload {
+        const decoded = jwt.verify(token, this.key) as JwtPayload
+        if (decoded.iat && decoded.exp && decoded.exp < decoded.iat) {
+            throw new Error("The token has expired")
+        }
+        return decoded
+    }
+
     public async authorizationCheck(request: FastifyRequest, reply: FastifyReply): Promise<void> {
         try {
             const token = request.headers.authorization?.replace('Bearer ', '') as string
-            const decoded = jwt.verify(token, this.key)
+            const decoded = this.parseJwt(token)
+            if (!decoded.userId || decoded.userId === "") {
+                throw new Error("No user found.")
+            }
         } catch (err) {
             reply.status(401).send({ message: 'User unauthorized.' });
         }
+    }
 
+    public returnParsedJwt(jwtToken: string): JwtPayload {
+        return this.parseJwt(jwtToken)
     }
 
     public async hashPassword(password: string, salt: string): Promise<string> {
         return bcrypt.hash(password, salt);
     }
 
-    // Function to verify a password
     public verifyPassword(inputPassword: string, hashedPassword: string): boolean {
         return inputPassword === hashedPassword
     }
