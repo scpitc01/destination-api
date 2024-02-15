@@ -1,4 +1,4 @@
 {
-    "mongoUri": "mongodb+srv://user:pass@destination-api-uofl.iet1ria.mongodb.net/destination",
+    "mongoUri": "mongodb+srv://admin:wowSGp1pOH85TyPB@destination-api-uofl.iet1ria.mongodb.net/destination",
     "secretKey": "TestValue"
 }
