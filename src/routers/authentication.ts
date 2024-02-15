@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
-import UserController from '../controllers/user'
+import UserController from '../controllers/authentication'
 import { User } from '../models/user'
 import { UserLoginObject } from '../types/objects/user'
 import { loginPostRequest, registerationPostRequest } from '../swaggerSchemas/authentication';

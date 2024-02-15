@@ -3,7 +3,7 @@ import authenticationService from '../services/authentication';
 import { UserLoginObject } from '../types/objects/user';
 
 
-class UserController {
+class AuthenticationController {
     // Properties
 
     // Constructor
@@ -38,4 +38,4 @@ class UserController {
     }
 }
 
-export default new UserController();
+export default new AuthenticationController();
