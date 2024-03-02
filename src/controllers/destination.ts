@@ -1,5 +1,6 @@
 import openCageService from '../services/opencage';
 import { AddDestinationObject } from '../types/objects/destination';
+import { OpenCageResults } from '../types/objects/opencage';
 
 
 class DestinationController {
@@ -10,7 +11,10 @@ class DestinationController {
     }
 
     public async insertLocation(destinationRequest: AddDestinationObject) {
-        return openCageService.retrieveCoordinates(destinationRequest.city, destinationRequest.stateAbbreviation)
+        const openCageResults: OpenCageResults = await openCageService.retrieveCoordinates(destinationRequest.city, destinationRequest.stateAbbreviation)
+        if (openCageResults.results.length) {
+            throw new Error("No results found for the requested destination")
+        }
     }
 }
 
