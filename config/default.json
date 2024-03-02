@@ -30,5 +30,10 @@
     "opencage": {
         "hostname": "https://api.opencagedata.com/geocode/v1/",
         "key": "539630d02b124f509d95941224cb4c53"
+    },
+    "amadeus": {
+        "hostname": "https://test.api.amadeus.com/v1/",
+        "key": "1NJcUAVMfUqHgr3k6pWS2Q9SSyxr713W",
+        "secret": "eIr9DhvGPJvAPZRQ"
     }
 }
