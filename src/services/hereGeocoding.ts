@@ -15,7 +15,8 @@ class HereGeocodingService {
          * Determines points of interests for the location. 
          * @param {string} latitude The city you are currently trying to look up. 
          * @param {string} longitude The state abbreviation for the location you are trying to look up.
-         * @returns {Promise<OpenCageResults>}
+         * @param {string} type The type of point on interest you are going to be looking for. 
+         * @returns {Promise<HereApiResults>}
          */
     public async retrievePointsOfInterest(latitude: string, longitude: string, type: string) {
         const result = await axios.get(`${this.url}discover?at=${latitude},${longitude}&apiKey=${this.key}&q=${type}&limit=100`)
