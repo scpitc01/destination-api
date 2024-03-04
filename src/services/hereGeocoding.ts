@@ -19,7 +19,7 @@ class HereGeocodingService {
          * @returns {Promise<HereApiResults>}
          */
     public async retrievePointsOfInterest(latitude: string, longitude: string, type: string) {
-        const result = await axios.get(`${this.url}discover?at=${latitude},${longitude}&apiKey=${this.key}&q=${type}&limit=100`)
+        const result = await axios.get(`${this.url}/v1/discover?at=${latitude},${longitude}&apiKey=${this.key}&q=${type}&limit=100`)
         return result.data
     }
 

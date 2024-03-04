@@ -32,7 +32,7 @@
         "key": "539630d02b124f509d95941224cb4c53"
     },
     "hereGeocoding": {
-        "hostname": "https://discover.search.hereapi.com/v1/",
+        "hostname": "https://discover.search.hereapi.com",
         "key": "NNsleDG3QwlHW0ze-j2uj_h-5iZ4fG2M9MI9_Mz77Pk"
     }
 }
