@@ -14,6 +14,11 @@ class DestinationController {
     constructor() {
     }
 
+    /**
+     * Finds the destination and information about it to add to the mongo cache.
+     * @param {AddDestinationObject} destinationRequest The request to request information about the destination to add to the cache. 
+     * @returns {DestinationModel} Returns the found destinationModel
+     */
     public async insertLocation(destinationRequest: AddDestinationObject) {
         const destination = await DestinationModel.findOne({ city: destinationRequest.city, state: destinationRequest.stateAbbreviation })
         if (destination) {
