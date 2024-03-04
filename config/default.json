@@ -28,7 +28,7 @@
         }
     },
     "opencage": {
-        "hostname": "https://api.opencagedata.com/geocode/v1/",
+        "hostname": "https://api.opencagedata.com",
         "key": "539630d02b124f509d95941224cb4c53"
     },
     "hereGeocoding": {

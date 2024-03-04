@@ -18,7 +18,7 @@ class OpenCageService {
      * @returns {Promise<OpenCageResults>}
      */
     public async retrieveCoordinates(city: string, stateAbbreviation: string) {
-        const result = await axios.get(`${this.url}json?q=${city},${stateAbbreviation}&key=${this.key}&language=en&pretty=1`)
+        const result = await axios.get(`${this.url}/geocode/v1/json?q=${city},${stateAbbreviation}&key=${this.key}&language=en&pretty=1`)
         return result.data
     }
 }
