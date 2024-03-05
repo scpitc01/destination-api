@@ -22,6 +22,8 @@ app.register(fastifyCors);
 
 app.register(import('./routers/authentication'), { prefix: 'auth' })
 app.register(import('./routers/destination'), { prefix: 'destination' })
+app.register(import('./routers/destinationRating'), { prefix: 'destination/rating' })
+
 
 app.addHook('preHandler', async (request, reply) => {
     if (request.url.startsWith('/auth') || request.url.startsWith('/docs')) {
