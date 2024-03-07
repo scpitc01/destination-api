@@ -1,3 +1,4 @@
+import config from 'config';
 import authenticationService from '../../src/services/authentication'
 import jwt, { JwtPayload } from "jsonwebtoken"
 
@@ -5,6 +6,21 @@ import jwt, { JwtPayload } from "jsonwebtoken"
 describe('Authentication Service', () => {
     let AuthenticationService = authenticationService
 
+    it('authorizationCheck should throw an error if the token is invalid', async () => {
+        try {
+            const testJwt = jwt.sign({}, config.get('secretKey'));
+            await AuthenticationService.authorizationCheck(testJwt)
+        }
+        catch (err) {
+            expect(err).toBeDefined()
+        }
+    })
+
+    it('authorizationCheck should not throw an error if the token is valid', async () => {
+        const jwtToken = AuthenticationService.createJWT('User')
+        const authorized = await AuthenticationService.authorizationCheck(jwtToken)
+        expect(authorized).toBeTruthy()
+    })
     it('authorizationCheck should not throw an error if the token is valid', async () => {
         const jwtToken = AuthenticationService.createJWT('User')
         const authorized = await AuthenticationService.authorizationCheck(jwtToken)
