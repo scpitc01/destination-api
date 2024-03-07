@@ -28,8 +28,7 @@ class AuthenticationService {
 
     /**
      * Should check if the bearer token for the request sent into the api is valid.
-     * @param {FastifyRequest} request Requests from fasitify coming in.
-     * @param {FastifyReply} reply Replys to send back to the requester. 
+     * @param {string} token The bearer token we are checking
      */
     public async authorizationCheck(token: string): Promise<boolean> {
         try {

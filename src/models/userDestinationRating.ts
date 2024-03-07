@@ -2,14 +2,14 @@ import mongoose, { Schema, Document } from 'mongoose';
 
 
 export interface UserDestinationRating {
-    userId: Schema.Types.ObjectId
-    destinationId: Schema.Types.ObjectId
+    userId: string
+    destinationId: string
     rating: number
 }
 
 const userDestinationRatingSchema = new Schema<UserDestinationRating>({
-    userId: { type: Schema.Types.ObjectId, ref: 'user', required: true },
-    destinationId: { type: Schema.Types.ObjectId, ref: 'destination', required: true },
+    userId: { type: String, ref: 'user', required: true },
+    destinationId: { type: String, ref: 'destination', required: true },
     rating: { type: Number, required: true }
 });
 

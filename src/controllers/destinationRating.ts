@@ -18,7 +18,7 @@ class DestinationRatingController {
             return result
         }
         else {
-            UserDestinationRatingModel.create(ratingRequest)
+            return UserDestinationRatingModel.create(ratingRequest)
         }
     }
 

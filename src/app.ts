@@ -31,7 +31,7 @@ app.addHook('preHandler', async (request, reply) => {
     }
     try {
         const token = request.headers.authorization?.replace('Bearer ', '') as string
-        await authentication.authorizationCheck(token);
+        await authentication.authorizationCheck(token)
     }
     catch (err) {
         reply.status(401).send({ message: 'User unauthorized.' });
