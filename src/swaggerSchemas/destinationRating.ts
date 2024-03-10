@@ -1,6 +1,7 @@
 export const addDestinationRatingObjectRequest = {
     description: 'Add destination rating object to the mongo cache to be used for later.',
     tags: ['Destination Rating'],
+    security: [{ bearerAuth: [] }],
     body: {
         type: 'object',
         properties: {
@@ -40,6 +41,7 @@ export const addDestinationRatingObjectRequest = {
 export const updateDestinationRatingObjectRequest = {
     description: 'Update destination rating object to the mongo cache to be used for later.',
     tags: ['Destination Rating'],
+    security: [{ bearerAuth: [] }],
     body: {
         type: 'object',
         properties: {

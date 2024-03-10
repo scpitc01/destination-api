@@ -1,6 +1,7 @@
 export const addDestinationObjectRequest = {
     description: 'Add destination object to the mongo cache to be used for later.',
     tags: ['Destination'],
+    security: [{ bearerAuth: [] }],
     body: {
         type: 'object',
         properties: {
@@ -58,6 +59,7 @@ export const addDestinationObjectRequest = {
 export const findDestinationObjectRequest = {
     description: 'Finds destination object in the mongo cache.',
     tags: ['Destination'],
+    security: [{ bearerAuth: [] }],
     params: {
         type: 'object',
         properties: {

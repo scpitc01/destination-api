@@ -2,7 +2,7 @@ import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
 import UserController from '../controllers/authentication'
 import { User } from '../models/user'
 import { UserLoginObject } from '../types/objects/user'
-import { loginPostRequest, registerationPostRequest } from '../swaggerSchemas/authentication';
+import { loginPostRequest, registerationPostRequest, tokenValidationGetRequest } from '../swaggerSchemas/authentication';
 
 export default async function (app: FastifyInstance) {
 
@@ -18,7 +18,7 @@ export default async function (app: FastifyInstance) {
         return jwt ? reply.send({ token: jwt }) : reply.status(401).send({ message: 'Wrong username and password combination.' });
     })
 
-    app.get('/token/valid', async (request: FastifyRequest, reply: FastifyReply) => {
+    app.get('/token/valid', { schema: tokenValidationGetRequest }, async (request: FastifyRequest, reply: FastifyReply) => {
         const token = request?.headers?.authorization
         if (!token) {
             return reply.status(401).send({ message: 'No token was sent in.' })
