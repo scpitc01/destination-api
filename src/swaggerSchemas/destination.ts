@@ -25,6 +25,7 @@ export const addDestinationObjectRequest = {
             properties: {
                 _id: { type: 'string' },
                 city: { type: 'string' },
+                state: { type: 'string' },
                 hasZoo: { type: 'boolean' },
                 hasSkiing: { type: 'boolean' },
                 hasCasino: { type: 'boolean' },

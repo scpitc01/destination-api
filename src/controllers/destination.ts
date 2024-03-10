@@ -79,7 +79,7 @@ class DestinationController {
                 hotelResults: hereGeoCodingHotelResults.items.map(x => ({ name: x.title, type: x.categories[0].name, address: x.address.label })),
                 outDoorResults: combineOutdoorResults.map(x => ({ name: x.title, type: x.categories[0].name, address: x.address.label }))
             }
-            await DestinationModel.create(newDestination)
+            return await DestinationModel.create(newDestination)
         }
     }
 }
