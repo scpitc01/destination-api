@@ -56,7 +56,7 @@ describe('Authentication Controller', () => {
         const serviceHashPassword = jest.spyOn(authenticationService, 'hashPassword').mockImplementation(hashPasswordAsyncMethod);
         const verifyPasswordMethod = jest.fn().mockReturnValue(true)
         const serviceVerifyPassword = jest.spyOn(authenticationService, 'verifyPassword').mockImplementation(verifyPasswordMethod);
-        const createJwtAsyncMethod = jest.fn().mockResolvedValue('TestValue');
+        const createJwtAsyncMethod = jest.fn().mockReturnValue('TestValue');
         const serviceCreateJwt = jest.spyOn(authenticationService, 'createJWT').mockImplementation(createJwtAsyncMethod);
 
         const user = await AuthenticationController.loginUser({ username: 'TestUser', password: 'TestPassword' })
@@ -65,7 +65,7 @@ describe('Authentication Controller', () => {
         expect(serviceHashPassword).toHaveBeenCalled()
         expect(serviceVerifyPassword).toHaveBeenCalled()
         expect(serviceCreateJwt).toHaveBeenCalled()
-        expect(user).toBe('TestValue')
+        expect(user?.token).toBe('TestValue')
     })
 
     it('validateToken should fail with no found user', async () => {

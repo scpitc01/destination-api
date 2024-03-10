@@ -31,7 +31,8 @@ class AuthenticationController {
         if (foundUser) {
             user.password = await authenticationService.hashPassword(user.password, foundUser.salt)
             if (authenticationService.verifyPassword(user.password, foundUser.password)) {
-                return authenticationService.createJWT(foundUser.username, foundUser._id.toString())
+                const token = authenticationService.createJWT(foundUser.username, foundUser._id.toString())
+                return { token: token, userId: foundUser._id.toString() }
             }
         }
         return null

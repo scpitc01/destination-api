@@ -15,7 +15,7 @@ export default async function (app: FastifyInstance) {
         const body = request.body as UserLoginObject
         const jwt = await UserController.loginUser(body)
 
-        return jwt ? reply.send({ token: jwt }) : reply.status(401).send({ message: 'Wrong username and password combination.' });
+        return jwt ? reply.send(jwt) : reply.status(401).send({ message: 'Wrong username and password combination.' });
     })
 
     app.get('/token/valid', { schema: tokenValidationGetRequest }, async (request: FastifyRequest, reply: FastifyReply) => {
