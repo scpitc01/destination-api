@@ -77,3 +77,38 @@ export const updateDestinationRatingObjectRequest = {
         },
     },
 };
+
+export const findDestinationRatingObjectRequest = {
+    description: 'Find destination rating object.',
+    tags: ['Destination Rating'],
+    security: [{ bearerAuth: [] }],
+    params: {
+        type: 'object',
+        properties: {
+            userId: {
+                type: 'string',
+                description: 'The mongo id for the user.'
+            },
+            destinationId: {
+                type: 'string',
+                description: 'The mongo id for the destination'
+            }
+        },
+        required: [
+            "userId",
+            "destinationId"
+        ]
+    },
+    response: {
+        200: {
+            description: 'Successful response',
+            type: 'object',
+            properties: {
+                _id: { type: 'string' },
+                userId: { type: 'string' },
+                destinationId: { type: 'string' },
+                rating: { type: 'number' }
+            }
+        },
+    },
+};

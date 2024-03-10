@@ -42,6 +42,20 @@ describe('Destination Rating Router', () => {
         expect(serviceFindRating).toHaveBeenCalled()
     })
 
+    it('GET /destination/rating/:userId/:destinationId responds with a 200 and returns object.', async () => {
+        const findDestinationRating = jest.fn().mockResolvedValue({ userId: '65e50a396c69ace0de368e13', destinationId: '65e50a396c69ace0de368e13', rating: 3.25 });
+        const serviceFindRating = jest.spyOn(UserDestinationRatingModel, 'findOne').mockImplementation(findDestinationRating);
+        // Create a Supertest request instance
+        const request = supertest(server);
+
+        // Send a GET request to the specified route
+        const response = await request.get('/destination/rating/65e50a396c69ace0de368e13/65e50a396c69ace0de368e13').send();
+
+        // Assert that the response status code is 200
+        expect(response.status).toBe(200)
+        expect(serviceFindRating).toHaveBeenCalled()
+    })
+
     afterAll(async () => {
         // Close the Fastify server after all tests have finished
         await app.close()

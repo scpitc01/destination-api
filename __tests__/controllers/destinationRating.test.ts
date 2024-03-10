@@ -7,7 +7,6 @@ describe('Destination Rating Controller', () => {
     const DestinationRatingController = destinationRatingController
 
     it('insertDestinationRating should not find one and insert into the database.', async () => {
-
         const findDestinationRating = jest.fn().mockResolvedValue(null);
         const serviceFindRating = jest.spyOn(UserDestinationRatingModel, 'findOne').mockImplementation(findDestinationRating);
         const createDestinationRating = jest.fn().mockResolvedValue({ useId: '65e50a396c69ace0de368e13', destinationId: '65e50a396c69ace0de368e13', rating: 3.25 });
@@ -20,7 +19,6 @@ describe('Destination Rating Controller', () => {
     })
 
     it('insertDestinationRating should find one and not insert into the database.', async () => {
-
         const findDestinationRating = jest.fn().mockResolvedValue({ useId: '65e50a396c69ace0de368e13', destinationId: '65e50a396c69ace0de368e13', rating: 3.25 });
         const serviceFindRating = jest.spyOn(UserDestinationRatingModel, 'findOne').mockImplementation(findDestinationRating);
 
@@ -30,12 +28,20 @@ describe('Destination Rating Controller', () => {
     })
 
     it('updateDestinationRating should find one and update into the database.', async () => {
-
         const updateDestinationRating = jest.fn().mockResolvedValue({ useId: '65e50a396c69ace0de368e13', destinationId: '65e50a396c69ace0de368e13', rating: 3.25 });
         const serviceUpdateRating = jest.spyOn(UserDestinationRatingModel, 'findOneAndUpdate').mockImplementation(updateDestinationRating);
 
         const rating = await DestinationRatingController.updateDestinationRating({ userId: '65e50a396c69ace0de368e13', destinationId: '65e50a396c69ace0de368e13', rating: 3.25 })
         expect(rating).toBeDefined()
         expect(serviceUpdateRating).toHaveBeenCalled()
+    })
+
+    it('findDestinationRating should find one.', async () => {
+        const findDestinationRating = jest.fn().mockResolvedValue({ useId: '65e50a396c69ace0de368e13', destinationId: '65e50a396c69ace0de368e13', rating: 3.25 });
+        const serviceFindRating = jest.spyOn(UserDestinationRatingModel, 'findOne').mockImplementation(findDestinationRating);
+
+        const rating = await DestinationRatingController.findDestinationRating({ userId: '65e50a396c69ace0de368e13', destinationId: '65e50a396c69ace0de368e13' })
+        expect(rating).toBeDefined()
+        expect(serviceFindRating).toHaveBeenCalled()
     })
 });
