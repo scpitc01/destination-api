@@ -1,10 +1,12 @@
 import config from "config";
 import axios from "axios";
+import { HereApiResults } from "../types/objects/here";
 
 class HereGeocodingService {
     // Properties
     private url = ''
     private key = ''
+    private maxDistance = 48281
     // Constructor
     constructor(url: string, key: string) {
         this.key = key
@@ -20,9 +22,24 @@ class HereGeocodingService {
          */
     public async retrievePointsOfInterest(latitude: string, longitude: string, type: string) {
         const result = await axios.get(`${this.url}/v1/discover?at=${latitude},${longitude}&apiKey=${this.key}&q=${type}&limit=100`)
+        result.data.items = result.data.items.filter((x: any) => x.distance < this.maxDistance)
         return result.data
     }
 
+    /**
+     * Converts the results from here api to values that smaller for mongo.
+     * @param {HereApiResults} results results from one of the many api calls to here api. 
+     * @returns {Object}
+     */
+    public convertPointOfInterestResultsForMongo(results: HereApiResults) {
+        return results.items.map(x => (
+            {
+                name: x?.title,
+                type: x?.categories?.some(x => x) ? x?.categories[0].name : 'Unknown',
+                address: x?.address.label
+            }
+        ))
+    }
 
 }
 
