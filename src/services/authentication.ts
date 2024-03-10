@@ -74,11 +74,12 @@ class AuthenticationService {
     /**
      * Creates the JWT that will be used for authorization when requests are send back to the api. 
      * @param {string} username  The string that user chose to represent themselves in the system. 
+     * @param {string} userId  The mongo identifier for the user.
      * @returns {string} The jwt token that returns the authorization for the user.
      */
-    createJWT(username: string): string {
+    createJWT(username: string, userId: string): string {
         const expiresIn = '30m'; // Token expiration time (e.g., 1 hour)
-        return jwt.sign({ username }, this.key, { expiresIn });
+        return jwt.sign({ username, userId }, this.key, { expiresIn });
     }
 
     /**

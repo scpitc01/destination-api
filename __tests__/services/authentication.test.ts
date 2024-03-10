@@ -17,18 +17,18 @@ describe('Authentication Service', () => {
     })
 
     it('authorizationCheck should not throw an error if the token is valid', async () => {
-        const jwtToken = AuthenticationService.createJWT('User')
+        const jwtToken = AuthenticationService.createJWT('User', 'TestID')
         const authorized = await AuthenticationService.authorizationCheck(jwtToken)
         expect(authorized).toBeTruthy()
     })
     it('authorizationCheck should not throw an error if the token is valid', async () => {
-        const jwtToken = AuthenticationService.createJWT('User')
+        const jwtToken = AuthenticationService.createJWT('User', 'TestID')
         const authorized = await AuthenticationService.authorizationCheck(jwtToken)
         expect(authorized).toBeTruthy()
     })
 
     it('returnParsedJwt should return a valid and useable jwt token ', async () => {
-        const jwtToken = AuthenticationService.createJWT('User')
+        const jwtToken = AuthenticationService.createJWT('User', 'TestID')
         const parsedJwt = AuthenticationService.returnParsedJwt(jwtToken)
         expect('User').toEqual(parsedJwt.username)
     })
@@ -55,7 +55,7 @@ describe('Authentication Service', () => {
     })
 
     it('createJWT should generate a jwt based off of a username entered in.', async () => {
-        const jwt = AuthenticationService.createJWT('testUser')
+        const jwt = AuthenticationService.createJWT('testUser', 'TestID')
         expect(jwt).toBeDefined()
     })
 

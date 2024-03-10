@@ -50,7 +50,7 @@ describe('Authentication Controller', () => {
     })
 
     it('loginUser should succeed.', async () => {
-        const findUserAsyncMethod = jest.fn().mockResolvedValue({ username: 'TestUser', password: 'TestPassword', salt: 'TestSalt' });
+        const findUserAsyncMethod = jest.fn().mockResolvedValue({ _id: 'Testid', username: 'TestUser', password: 'TestPassword', salt: 'TestSalt' });
         const serviceFindUser = jest.spyOn(UserModel, 'findOne').mockImplementation(findUserAsyncMethod);
         const hashPasswordAsyncMethod = jest.fn().mockResolvedValue('Hashed Password');
         const serviceHashPassword = jest.spyOn(authenticationService, 'hashPassword').mockImplementation(hashPasswordAsyncMethod);
