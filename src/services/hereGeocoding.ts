@@ -32,7 +32,7 @@ class HereGeocodingService {
      * @returns {Object}
      */
     public convertPointOfInterestResultsForMongo(results: HereApiResults) {
-        return results.items.map(x => (
+        return results?.items.map(x => (
             {
                 name: x?.title,
                 type: x?.categories?.some(x => x) ? x?.categories[0].name : 'Unknown',
