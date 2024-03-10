@@ -82,6 +82,19 @@ class DestinationController {
             return await DestinationModel.create(newDestination)
         }
     }
+
+    /**
+     * Retrieves a specific destination by the mongo id. 
+     * @param destinationId The mongo id for the destination we are looking to retrieve. 
+     * @returns {DestinationModel} The mongo object for the destination.
+     */
+    public async findLocation(destinationId: string) {
+        const result = await DestinationModel.findById(destinationId)
+        if (!result) {
+            throw new Error("No destination was found by that id")
+        }
+        return result
+    }
 }
 
 export default new DestinationController();
