@@ -60,7 +60,8 @@ export const loginPostRequest = {
             description: 'Successful response',
             type: 'object',
             properties: {
-                token: { type: 'string' }
+                token: { type: 'string' },
+                userId: { type: 'string' }
             }
         },
     },

@@ -19,7 +19,7 @@ export default async function (app: FastifyInstance) {
     })
 
     app.get('/token/valid', { schema: tokenValidationGetRequest }, async (request: FastifyRequest, reply: FastifyReply) => {
-        const token = request?.headers?.authorization
+        const token = request.headers.authorization
         if (!token) {
             return reply.status(401).send({ message: 'No token was sent in.' })
         }
