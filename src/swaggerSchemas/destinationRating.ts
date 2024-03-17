@@ -36,7 +36,7 @@ export const addDestinationRatingObjectRequest = {
             }
         },
     },
-};
+}
 
 export const updateDestinationRatingObjectRequest = {
     description: 'Update destination rating object to the mongo cache to be used for later.',
@@ -76,7 +76,7 @@ export const updateDestinationRatingObjectRequest = {
             }
         },
     },
-};
+}
 
 export const findDestinationRatingObjectRequest = {
     description: 'Find destination rating object.',
@@ -111,4 +111,28 @@ export const findDestinationRatingObjectRequest = {
             }
         },
     },
-};
+}
+
+export const listDestinationRatingObjectRequest = {
+    description: 'Lists destination rating object.',
+    tags: ['Destination Rating'],
+    security: [{ bearerAuth: [] }],
+    params: {
+        type: 'object',
+        properties: {
+            userId: {
+                type: 'string',
+                description: 'The mongo id for the user.'
+            }
+        },
+        required: [
+            "userId"
+        ]
+    },
+    response: {
+        200: {
+            description: 'Successful response',
+            type: 'array'
+        },
+    },
+}

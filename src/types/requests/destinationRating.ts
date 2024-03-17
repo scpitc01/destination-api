@@ -8,3 +8,9 @@ export interface AddDestinationRatingRequest {
 export interface FindDestinationRatingRequest {
     params: FindDestinationRating
 }
+
+export interface ListDestinationRatingRequest {
+    params: {
+        userId: string
+    }
+}

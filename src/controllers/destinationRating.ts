@@ -42,6 +42,43 @@ class DestinationRatingController {
         const result = await UserDestinationRatingModel.findOne({ userId: findRequest.userId, destinationId: findRequest.destinationId })
         return result
     }
+
+    /**
+     * Lists all of the users rating as well as the the other information related to it.
+     * @param userId The userId for the user we are looking for the combined records for. 
+     */
+    public async listCombinedDestinationRating(userId: string) {
+
+        const results = await UserDestinationRatingModel.aggregate([
+            {
+                '$match': {
+                    'userId': userId
+                }
+            }, {
+                '$addFields': {
+                    'destinationObjectId': {
+                        '$toObjectId': '$destinationId'
+                    }
+                }
+            }, {
+                '$lookup': {
+                    'from': 'destinations',
+                    'localField': 'destinationObjectId',
+                    'foreignField': '_id',
+                    'as': 'destinationsObject'
+                }
+            }, {
+                '$unwind': {
+                    'path': '$destinationsObject',
+                    'includeArrayIndex': 'string',
+                    'preserveNullAndEmptyArrays': true
+                }
+            }
+        ])
+
+        return results
+
+    }
 }
 
 export default new DestinationRatingController();
