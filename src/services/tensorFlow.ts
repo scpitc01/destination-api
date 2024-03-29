@@ -22,13 +22,14 @@ class TensorFlowService {
         // Generate some synthetic data for training.
 
         //[action, adventure, romance]
-        const xs = tf.tensor2d([[1, 1, 0], [1, 0, 1]]);
+        const xs = tf.tensor2d([[1, 1, 0], [1, 0, 1], [1, 2, 1]]);
         //target data should be rating from 1 to 5
-        const ys = tf.tensor2d([[3], [2]]);
+        const ys = tf.tensor2d([[3], [2], [5]]);
 
         // Train the model using the data.
         await model.fit(xs, ys)
-        const result = await model.predict(tf.tensor2d([[1, 0, 0]]))
+        const result = await model.predict(tf.tensor2d([[1, 0, 0], [1, 0, 3], [1, 5, 0]]))
+
         // Use the model to do inference on a data point the model hasn't seen before:
     }
 
