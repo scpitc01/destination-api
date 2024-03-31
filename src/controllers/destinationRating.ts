@@ -48,7 +48,6 @@ class DestinationRatingController {
      * @param userId The userId for the user we are looking for the combined records for. 
      */
     public async listCombinedDestinationRating(userId: string) {
-
         const results = await UserDestinationRatingModel.aggregate([
             {
                 '$match': {

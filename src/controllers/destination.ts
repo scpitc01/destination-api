@@ -66,7 +66,7 @@ class DestinationController {
                 stadiumResults: hereGeoCoding.convertPointOfInterestResultsForMongo(poiResults[10]),
                 hotelResults: hereGeoCoding.convertPointOfInterestResultsForMongo(poiResults[11]),
                 outDoorResults: [...poiResults[12].items, ...poiResults[13].items, ...poiResults[14].items]
-                    .map(x => ({ name: x?.title, type: x?.categories[0].name, address: x?.address.label }))
+                    .map(x => ({ name: x?.title, type: x?.categories?.some((x: any) => x) ? x?.categories[0].name : 'Unknown', address: x?.address.label }))
             };
 
             return await DestinationModel.create(newDestination);
