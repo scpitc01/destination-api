@@ -29,6 +29,8 @@ describe('Authentication Router', () => {
     })
 
     it('/auth/login responds with 401 status code', async () => {
+        const findUserAsyncMethod = jest.fn().mockResolvedValue(null);
+        const serviceFindUser = jest.spyOn(UserModel, 'findOne').mockImplementation(findUserAsyncMethod);
         const salt = await AuthenticationService.generateSalt();
         // Create a Supertest request instance
         const request = supertest(server);

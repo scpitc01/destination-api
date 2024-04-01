@@ -9,4 +9,5 @@ module.exports = {
         "dist",
         "types"
     ],
+    setupFiles: ["./setEnvVars.js"]
 }

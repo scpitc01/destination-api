@@ -40,13 +40,16 @@ app.addHook('preHandler', async (request, reply) => {
 });
 
 // Connect to MongoDB
-mongoose.connect(config.get('mongoUri'));
+if (process.env.NODE_ENV !== 'test') {
+    mongoose.connect(config.get('mongoUri'));
+    // Check for MongoDB connection errors
+    const db = mongoose.connection;
+    db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+    db.once('open', () => {
+        app.log.info(`Connected to MongoDB`)
+    });
+}
 
-// Check for MongoDB connection errors
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('open', () => {
-    app.log.info(`Connected to MongoDB`)
-});
+
 
 export default app;

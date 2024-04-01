@@ -89,6 +89,10 @@ class AuthenticationService {
     async generateSalt() {
         return bcrypt.genSalt(this.saltRounds);
     }
+
+    // async verifyUser(userId, ) {
+
+    // }
 }
 
-export default new AuthenticationService(10, config.get('secretKey'));
+export default new AuthenticationService(10, process.env.SECRET_KEY);
