@@ -15,7 +15,7 @@ describe('Opencage Service', () => {
     it('retrieveCoordinates should retrieve response from nock.', async () => {
         const mockResponse: OpenCageResults = { results: [{ components: { city: 'Louisville', state: 'Kentucky', state_code: 'KY' }, geometry: { lat: '50', lng: '20' } }] }
         nock(config.get('opencage.hostname'))
-            .get(`/geocode/v1/json?q=Louisville,KY&key=${config.get('opencage.key')}&language=en&pretty=1`)
+            .get(`/geocode/v1/json?q=Louisville,KY&key=${process.env.OPENCAGE_KEY}&language=en&pretty=1`)
             .reply(200, mockResponse);
 
         const response = await OpenCage.retrieveCoordinates('Louisville', 'KY')

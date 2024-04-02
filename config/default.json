@@ -1,5 +1,9 @@
 {
     "mongoUri": "mongodb+srv://admin:wowSGp1pOH85TyPB@destination-api-uofl.iet1ria.mongodb.net/destination",
+    "mongo": {
+        "firstHalf": "mongodb+srv://admin:",
+        "secondHalf": "@destination-api-uofl.iet1ria.mongodb.net/destination"
+    },
     "swagger": {
         "swagger": {
             "info": {
@@ -34,11 +38,9 @@
         }
     },
     "opencage": {
-        "hostname": "https://api.opencagedata.com",
-        "key": "539630d02b124f509d95941224cb4c53"
+        "hostname": "https://api.opencagedata.com"
     },
     "hereGeocoding": {
-        "hostname": "https://discover.search.hereapi.com",
-        "key": "NNsleDG3QwlHW0ze-j2uj_h-5iZ4fG2M9MI9_Mz77Pk"
+        "hostname": "https://discover.search.hereapi.com"
     }
 }

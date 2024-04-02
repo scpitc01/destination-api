@@ -41,7 +41,10 @@ app.addHook('preHandler', async (request, reply) => {
 
 // Connect to MongoDB
 if (process.env.NODE_ENV !== 'test') {
-    mongoose.connect(config.get('mongoUri'));
+    const uri = `${config.get('mongo.firstHalf')}${process.env.MONGO_KEY}${config.get('mongo.secondHalf')}`
+    app.log.info(uri)
+
+    mongoose.connect(uri);
     // Check for MongoDB connection errors
     const db = mongoose.connection;
     db.on('error', console.error.bind(console, 'MongoDB connection error:'));

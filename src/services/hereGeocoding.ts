@@ -43,4 +43,4 @@ class HereGeocodingService {
 
 }
 
-export default new HereGeocodingService(config.get('hereGeocoding.hostname'), config.get('hereGeocoding.key'));
+export default new HereGeocodingService(config.get('hereGeocoding.hostname'), process.env.GEOCODE_KEY);
