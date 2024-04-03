@@ -1,5 +1,4 @@
 {
-    "mongoUri": "mongodb+srv://admin:wowSGp1pOH85TyPB@destination-api-uofl.iet1ria.mongodb.net/destination",
     "mongo": {
         "firstHalf": "mongodb+srv://admin:",
         "secondHalf": "@destination-api-uofl.iet1ria.mongodb.net/destination"
