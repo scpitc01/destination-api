@@ -1,5 +1,7 @@
 import config from "config"
 import * as tf from '@tensorflow/tfjs'
+import DestinationModel, { Destination } from "../models/destination";
+import { DestinationRatingWithDestination } from "../types/objects/destinationRating";
 
 
 class TensorFlowService {
@@ -7,12 +9,23 @@ class TensorFlowService {
     constructor() {
     }
 
-
-    public async determineNewDestinations() {
-        return await this.performMachineLearning()
+    /**
+     * @description Helper function to determine estimated rating for the user will return the 10 estimated ratings.
+     * @param unRatedDestination Unrated destinations by the user these will be given estimated rating and the top 10 will be returned.
+     * @param ratedDestinations Rated destinations by the user these will be used to determine the estimated ratings.
+     * @returns 
+     */
+    public async determineNewDestinations(unRatedDestination: Destination[], ratedDestinations: DestinationRatingWithDestination[]) {
+        return await this.performMachineLearning(unRatedDestination, ratedDestinations)
     }
 
-    private async performMachineLearning() {
+    /**
+     * @description Machine intelligence function that determines the highest ratings for unrated destinations
+     * @param unRatedDestination Unrated destinations by the user these will be given estimated rating and the top 10 will be returned.
+     * @param ratedDestinations Rated destinations by the user these will be used to determine the estimated ratings.
+     * @returns 
+     */
+    private async performMachineLearning(unRatedDestination: Destination[], ratedDestinations: DestinationRatingWithDestination[]) {
         // Define a model for linear regression.
         const model = tf.sequential();
         model.add(tf.layers.dense({ units: 1, inputDim: 3 }));

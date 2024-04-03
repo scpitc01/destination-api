@@ -26,9 +26,7 @@ class DestinationRecommendationController {
             result.rating = userRatings.find(rating => rating.destinationId === x._id.toString())?.rating ?? 0
             return result
         })
-        console.log(nonRatedResults)
-        console.log(combinedRatedDestination)
-        return await TensorFlow.determineNewDestinations()
+        return await TensorFlow.determineNewDestinations(nonRatedResults, combinedRatedDestination)
     }
 
     /**
