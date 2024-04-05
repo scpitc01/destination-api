@@ -16,7 +16,9 @@ class TensorFlowService {
      * @returns 
      */
     public async determineNewDestinations(unRatedDestination: Destination[], ratedDestinations: DestinationRatingWithDestination[]) {
-        return await this.performMachineLearning(unRatedDestination, ratedDestinations)
+        const results = await this.performMachineLearning(unRatedDestination, ratedDestinations)
+        console.log(results)
+        return results
     }
 
     /**
@@ -28,22 +30,46 @@ class TensorFlowService {
     private async performMachineLearning(unRatedDestination: Destination[], ratedDestinations: DestinationRatingWithDestination[]) {
         // Define a model for linear regression.
         const model = tf.sequential();
-        model.add(tf.layers.dense({ units: 1, inputDim: 3 }));
+        model.add(tf.layers.dense({ units: 1, inputDim: 12 }));
 
         // Prepare the model for training: Specify the loss and the optimizer.
         model.compile({ loss: 'meanSquaredError', optimizer: 'sgd' });
         // Generate some synthetic data for training.
 
-        //[action, adventure, romance]
-        const xs = tf.tensor2d([[1, 1, 0], [1, 0, 1], [1, 2, 1]]);
+        const xs = tf.tensor2d(this.getPointsOfInterestsArray(ratedDestinations));
         //target data should be rating from 1 to 5
-        const ys = tf.tensor2d([[3], [2], [5]]);
+        const ys = tf.tensor2d(this.getRatingArray(ratedDestinations));
 
         // Train the model using the data.
-        await model.fit(xs, ys)
-        const result = await model.predict(tf.tensor2d([[1, 0, 0], [1, 0, 3], [1, 5, 0]]))
+        await model.fit(xs, ys, { epochs: 50 })
+        const result = await model.predict(tf.tensor2d(this.getPointsOfInterestsArray(unRatedDestination))) as tf.Tensor
+        return result.data()
+    }
 
-        // Use the model to do inference on a data point the model hasn't seen before:
+    /**
+     * @description Converts destinations to arrays with number to stick into tensor flow. 
+     * @param destinations The destinations we are trying to convert to stick into tensor flow. 
+     * @returns {number[][]}
+     */
+    private getPointsOfInterestsArray(destinations: Destination[]) {
+        const destinationArray = []
+        for (const destination of destinations) {
+            destinationArray.push([destination.hasAmusementPark ? 1 : 0, destination.hasArtisticsPlays ? 1 : 0, destination.hasArtisticsPlays ? 1 : 0, destination.hasBeach ? 1 : 0, destination.hasCasino ? 1 : 0, destination.hasMountains ? 1 : 0, destination.hasMuseum ? 1 : 0, destination.hasNightLife ? 1 : 0, destination.hasOutdoorActivities ? 1 : 0, destination.hasSkiing ? 1 : 0, destination.hasSportStadium ? 1 : 0, destination.hasZoo ? 1 : 0])
+        }
+        return destinationArray
+    }
+
+    /**
+     * @description Converts destinations to arrays with number to stick into tensor flow. 
+     * @param destinations The destinations we are trying to convert to stick into tensor flow. 
+     * @returns {number[][]}
+     */
+    private getRatingArray(destinations: DestinationRatingWithDestination[]) {
+        const destinationArray = []
+        for (const destination of destinations) {
+            destinationArray.push([destination.rating])
+        }
+        return destinationArray
     }
 
 }
