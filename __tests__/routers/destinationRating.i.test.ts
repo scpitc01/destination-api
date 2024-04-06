@@ -17,6 +17,8 @@ describe('Destination Rating Router', () => {
     it('POST /destination/rating/ responds with a 200 and returns object.', async () => {
         const findDestinationRating = jest.fn().mockResolvedValue({ userId: '65e50a396c69ace0de368e13', destinationId: '65e50a396c69ace0de368e13', rating: 3.25 });
         const serviceFindRating = jest.spyOn(UserDestinationRatingModel, 'findOne').mockImplementation(findDestinationRating);
+        const authVerifyUser = jest.fn().mockResolvedValue(true)
+        const serviceVerifyUser = jest.spyOn(authenticationService, 'verifyUser').mockImplementation(authVerifyUser)
         // Create a Supertest request instance
         const request = supertest(server);
 
@@ -25,12 +27,15 @@ describe('Destination Rating Router', () => {
 
         // Assert that the response status code is 401
         expect(response.status).toBe(200)
+        expect(serviceVerifyUser).toHaveBeenCalled()
         expect(serviceFindRating).toHaveBeenCalled()
     })
 
     it('PATCH /destination/rating/ responds with a 200 and returns object.', async () => {
         const findDestinationRating = jest.fn().mockResolvedValue({ userId: '65e50a396c69ace0de368e13', destinationId: '65e50a396c69ace0de368e13', rating: 3.25 });
         const serviceFindRating = jest.spyOn(UserDestinationRatingModel, 'findOneAndUpdate').mockImplementation(findDestinationRating);
+        const authVerifyUser = jest.fn().mockResolvedValue(true)
+        const serviceVerifyUser = jest.spyOn(authenticationService, 'verifyUser').mockImplementation(authVerifyUser)
         // Create a Supertest request instance
         const request = supertest(server);
 
@@ -39,12 +44,15 @@ describe('Destination Rating Router', () => {
 
         // Assert that the response status code is 401
         expect(response.status).toBe(200)
+        expect(serviceVerifyUser).toHaveBeenCalled()
         expect(serviceFindRating).toHaveBeenCalled()
     })
 
     it('GET /destination/rating/:userId/:destinationId responds with a 200 and returns object.', async () => {
         const findDestinationRating = jest.fn().mockResolvedValue({ userId: '65e50a396c69ace0de368e13', destinationId: '65e50a396c69ace0de368e13', rating: 3.25 });
         const serviceFindRating = jest.spyOn(UserDestinationRatingModel, 'findOne').mockImplementation(findDestinationRating);
+        const authVerifyUser = jest.fn().mockResolvedValue(true)
+        const serviceVerifyUser = jest.spyOn(authenticationService, 'verifyUser').mockImplementation(authVerifyUser)
         // Create a Supertest request instance
         const request = supertest(server);
 
@@ -53,12 +61,15 @@ describe('Destination Rating Router', () => {
 
         // Assert that the response status code is 200
         expect(response.status).toBe(200)
+        expect(serviceVerifyUser).toHaveBeenCalled()
         expect(serviceFindRating).toHaveBeenCalled()
     })
 
     it('GET /destination/rating/:userId responds with a 200 and returns arry.', async () => {
         const listDestinationRating = jest.fn().mockResolvedValue([{ useId: '65e50a396c69ace0de368e13', destinationId: '65e50a396c69ace0de368e13', rating: 3.25, destinationsObject: { state: 'KY', city: 'Louisville' } }])
         const serviceListRating = jest.spyOn(UserDestinationRatingModel, 'aggregate').mockImplementation(listDestinationRating)
+        const authVerifyUser = jest.fn().mockResolvedValue(true)
+        const serviceVerifyUser = jest.spyOn(authenticationService, 'verifyUser').mockImplementation(authVerifyUser)
         // Create a Supertest request instance
         const request = supertest(server);
 
@@ -68,6 +79,7 @@ describe('Destination Rating Router', () => {
         // Assert that the response status code is 200
         expect(response.status).toBe(200)
         expect(serviceListRating).toHaveBeenCalled()
+        expect(serviceVerifyUser).toHaveBeenCalled()
         expect(serviceListRating).toHaveProperty('length')
     })
 
