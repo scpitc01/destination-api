@@ -23,4 +23,4 @@ class OpenCageService {
     }
 }
 
-export default new OpenCageService(config.get('opencage.hostname'), process.env.OPENCAGE_KEY);
+export default new OpenCageService(config.get('opencage.hostname'), process.env.OPENCAGE_KEY ?? "");

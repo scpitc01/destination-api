@@ -1,0 +1,52 @@
+[
+    {
+        "userId": "TestUser",
+        "destinationId": "Test1",
+        "rating": "4"
+    },
+    {
+        "userId": "TestUser",
+        "destinationId": "Test2",
+        "rating": "3"
+    },
+    {
+        "userId": "TestUser",
+        "destinationId": "Test3",
+        "rating": "2"
+    },
+    {
+        "userId": "TestUser",
+        "destinationId": "Test4",
+        "rating": "3"
+    },
+    {
+        "userId": "TestUser",
+        "destinationId": "Test5",
+        "rating": "2"
+    },
+    {
+        "userId": "TestUser",
+        "destinationId": "Test6",
+        "rating": "5"
+    },
+    {
+        "userId": "TestUser",
+        "destinationId": "Test7",
+        "rating": "1"
+    },
+    {
+        "userId": "TestUser",
+        "destinationId": "Test8",
+        "rating": "2"
+    },
+    {
+        "userId": "TestUser",
+        "destinationId": "Test9",
+        "rating": "4"
+    },
+    {
+        "userId": "TestUser",
+        "destinationId": "Test10",
+        "rating": "3"
+    }
+]

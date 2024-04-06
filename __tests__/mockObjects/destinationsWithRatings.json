@@ -1,0 +1,38 @@
+[
+    {
+        "_id": "Test11",
+        "city": "Test",
+        "state": "KY",
+        "hasZoo": false,
+        "hasSkiing": false,
+        "hasCasino": true,
+        "hasSportStadium": false,
+        "hasMuseum": false,
+        "hasNightLife": true,
+        "hasAquarium": false,
+        "hasBeach": true,
+        "hasMountains": false,
+        "hasOutdoorActivities": false,
+        "hasArtisticsPlays": false,
+        "hasAmusementPark": false,
+        "rating": 5
+    },
+    {
+        "_id": "Test12",
+        "city": "Test",
+        "state": "KY",
+        "hasZoo": false,
+        "hasSkiing": false,
+        "hasCasino": true,
+        "hasSportStadium": false,
+        "hasMuseum": false,
+        "hasNightLife": true,
+        "hasAquarium": true,
+        "hasBeach": false,
+        "hasMountains": false,
+        "hasOutdoorActivities": false,
+        "hasArtisticsPlays": false,
+        "hasAmusementPark": false,
+        "rating": 3
+    }
+]

@@ -1,7 +1,7 @@
 import config from "config"
 import * as tf from '@tensorflow/tfjs'
 import DestinationModel, { Destination } from "../models/destination";
-import { DestinationRatingWithDestination } from "../types/objects/destinationRating";
+import { DestinationRatingWithDestination, DestinationWithEstimatedRating } from "../types/objects/destinationRating";
 
 
 class TensorFlowService {
@@ -17,8 +17,14 @@ class TensorFlowService {
      */
     public async determineNewDestinations(unRatedDestination: Destination[], ratedDestinations: DestinationRatingWithDestination[]) {
         const results = await this.performMachineLearning(unRatedDestination, ratedDestinations)
-        console.log(results)
-        return results
+        const estimatedDestination = unRatedDestination as unknown as DestinationWithEstimatedRating[]
+
+        for (const index in estimatedDestination) {
+            estimatedDestination[index] = estimatedDestination[index]
+            estimatedDestination[index].estimatedRating = results[index]
+        }
+        const recommenedDestinations = estimatedDestination.sort((a, b) => b.estimatedRating - a.estimatedRating)
+        return recommenedDestinations.slice(0, 10)
     }
 
     /**

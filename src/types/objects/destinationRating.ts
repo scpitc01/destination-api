@@ -8,3 +8,7 @@ export interface FindDestinationRating {
 export interface DestinationRatingWithDestination extends Destination {
     rating: number
 }
+
+export interface DestinationWithEstimatedRating extends Destination {
+    estimatedRating: number
+}
