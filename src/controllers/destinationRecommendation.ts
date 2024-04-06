@@ -17,7 +17,7 @@ class DestinationRecommendationController {
      */
     public async listRecommendationForUser(userId: string) {
         const userRatings = await this.getUserRatings(userId)
-        if (userRatings.length > 10) {
+        if (userRatings.length < 10) {
             throw new Error("User must have at least 10 rated destination.")
         }
         const userDestinationIds = userRatings.map(x => x.destinationId)

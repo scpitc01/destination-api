@@ -63,4 +63,20 @@ describe('Authentication Service', () => {
         const salt = AuthenticationService.generateSalt()
         expect(salt).toBeDefined()
     })
+
+    it('verifyUser should validate the user', async () => {
+        const jwtToken = AuthenticationService.createJWT('User', 'TestID')
+        const result = AuthenticationService.verifyUser('TestID', jwtToken)
+        expect(result).toBe(true)
+    })
+
+    it('verifyUser should throw an error', async () => {
+        try {
+            const jwtToken = AuthenticationService.createJWT('User', 'TestID')
+            AuthenticationService.verifyUser('TestID', jwtToken)
+        }
+        catch (err) {
+            expect(err).toBeDefined()
+        }
+    })
 });

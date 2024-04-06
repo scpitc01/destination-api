@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "jest --coverage --runInBand --forceExit",
+    "test": "jest --coverage --runInBand",
     "build": "tsc",
     "start": "npm run build && nodemon --watch '**/*.ts' -e ts --exec ts-node ./src/server.ts"
   },

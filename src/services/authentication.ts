@@ -90,9 +90,18 @@ class AuthenticationService {
         return bcrypt.genSalt(this.saltRounds);
     }
 
-    // async verifyUser(userId, ) {
-
-    // }
+    /**
+     * @description Returns an error if the user does not match the jwt token that authorized the request. 
+     * @param {string} userId The user id that is being sent in as part of the get request. 
+     * @param {string} jwt The jwt the user passed into authentication themselves. 
+     */
+    verifyUser(userId: string, jwt: string) {
+        const token = this.returnParsedJwt(jwt)
+        if (token.userId !== userId) {
+            throw new Error("UserId sent in dosen't match userId in jwt.")
+        }
+        return true
+    }
 }
 
 export default new AuthenticationService(10, process.env.SECRET_KEY);
