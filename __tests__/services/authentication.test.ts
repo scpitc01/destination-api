@@ -73,7 +73,7 @@ describe('Authentication Service', () => {
     it('verifyUser should throw an error', async () => {
         try {
             const jwtToken = AuthenticationService.createJWT('User', 'TestID')
-            AuthenticationService.verifyUser('TestID', jwtToken)
+            AuthenticationService.verifyUser('TestID2', jwtToken)
         }
         catch (err) {
             expect(err).toBeDefined()
