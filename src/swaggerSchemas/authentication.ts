@@ -76,7 +76,7 @@ export const tokenValidationGetRequest = {
             description: 'Successful response',
             type: 'object',
             properties: {
-                username: { type: 'string' }
+                token: { type: 'string' }
             }
         },
     },

@@ -48,7 +48,8 @@ class AuthenticationController {
         const parsedJwt = authenticationService.returnParsedJwt(jwt)
         const foundUser = await UserModel.findOne({ username: parsedJwt.username, active: true })
         if (foundUser) {
-            return authenticationService.createJWT(parsedJwt.username, parsedJwt.userId)
+            const token = authenticationService.createJWT(parsedJwt.username, parsedJwt.userId)
+            return { token: token }
         }
         throw new Error("Token not valid")
     }
