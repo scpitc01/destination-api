@@ -34,7 +34,8 @@ export const listDestinationRecommendationObjectRequest = {
                     "hasMountains": true,
                     "hasOutdoorActivities": true,
                     "hasArtisticsPlays": true,
-                    "hasAmusementPark": false
+                    "hasAmusementPark": false,
+                    "estimatedRating": 5
                 },
                 {
                     "_id": "6609ce0f4bf25c7314563ad5",
@@ -51,7 +52,8 @@ export const listDestinationRecommendationObjectRequest = {
                     "hasMountains": true,
                     "hasOutdoorActivities": true,
                     "hasArtisticsPlays": true,
-                    "hasAmusementPark": false
+                    "hasAmusementPark": false,
+                    "estimatedRating": 4
                 },
                 {
                     "_id": "6609cfce4bf25c7314563cd3",
@@ -68,7 +70,8 @@ export const listDestinationRecommendationObjectRequest = {
                     "hasMountains": true,
                     "hasOutdoorActivities": true,
                     "hasArtisticsPlays": true,
-                    "hasAmusementPark": false
+                    "hasAmusementPark": false,
+                    "estimatedRating": 3
                 },
                 {
                     "_id": "6609cfe94bf25c7314563d43",
@@ -85,7 +88,8 @@ export const listDestinationRecommendationObjectRequest = {
                     "hasMountains": true,
                     "hasOutdoorActivities": true,
                     "hasArtisticsPlays": true,
-                    "hasAmusementPark": false
+                    "hasAmusementPark": false,
+                    "estimatedRating": 2.5
                 },
                 {
                     "_id": "6609cfed4bf25c7314563d58",
@@ -102,7 +106,8 @@ export const listDestinationRecommendationObjectRequest = {
                     "hasMountains": true,
                     "hasOutdoorActivities": true,
                     "hasArtisticsPlays": true,
-                    "hasAmusementPark": false
+                    "hasAmusementPark": false,
+                    "estimatedRating": 3.5
                 },
                 {
                     "_id": "6609ce634bf25c7314563c00",
@@ -119,7 +124,8 @@ export const listDestinationRecommendationObjectRequest = {
                     "hasMountains": true,
                     "hasOutdoorActivities": true,
                     "hasArtisticsPlays": true,
-                    "hasAmusementPark": false
+                    "hasAmusementPark": false,
+                    "estimatedRating": 2.5
                 },
                 {
                     "_id": "6609cfd44bf25c7314563ceb",
@@ -136,7 +142,8 @@ export const listDestinationRecommendationObjectRequest = {
                     "hasMountains": true,
                     "hasOutdoorActivities": true,
                     "hasArtisticsPlays": true,
-                    "hasAmusementPark": false
+                    "hasAmusementPark": false,
+                    "estimatedRating": 2.5
                 },
                 {
                     "_id": "6609d0154bf25c7314563e00",
@@ -153,7 +160,8 @@ export const listDestinationRecommendationObjectRequest = {
                     "hasMountains": true,
                     "hasOutdoorActivities": true,
                     "hasArtisticsPlays": true,
-                    "hasAmusementPark": false
+                    "hasAmusementPark": false,
+                    "estimatedRating": 2.5
                 },
                 {
                     "_id": "6609ce084bf25c7314563aba",
@@ -170,7 +178,8 @@ export const listDestinationRecommendationObjectRequest = {
                     "hasMountains": true,
                     "hasOutdoorActivities": true,
                     "hasArtisticsPlays": true,
-                    "hasAmusementPark": false
+                    "hasAmusementPark": false,
+                    "estimatedRating": 2.5
                 },
                 {
                     "_id": "6609ce184bf25c7314563af5",
@@ -187,7 +196,8 @@ export const listDestinationRecommendationObjectRequest = {
                     "hasMountains": true,
                     "hasOutdoorActivities": true,
                     "hasArtisticsPlays": true,
-                    "hasAmusementPark": false
+                    "hasAmusementPark": false,
+                    "estimatedRating": 2.5
                 }
             ]
         },
