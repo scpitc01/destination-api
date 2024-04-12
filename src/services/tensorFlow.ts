@@ -1,7 +1,7 @@
 import config from "config"
 import * as tf from '@tensorflow/tfjs'
 import DestinationModel, { Destination } from "../models/destination";
-import { DestinationRatingWithDestination, DestinationWithEstimatedRating } from "../types/objects/destinationRating";
+import { DestinationForRating, DestinationRatingWithDestination, DestinationWithEstimatedRating } from "../types/objects/destinationRating";
 
 
 class TensorFlowService {
@@ -15,7 +15,7 @@ class TensorFlowService {
      * @param ratedDestinations Rated destinations by the user these will be used to determine the estimated ratings.
      * @returns 
      */
-    public async determineNewDestinations(unRatedDestination: Destination[], ratedDestinations: DestinationRatingWithDestination[]) {
+    public async determineNewDestinations(unRatedDestination: DestinationForRating[], ratedDestinations: DestinationRatingWithDestination[]) {
         const results = await this.performMachineLearning(unRatedDestination, ratedDestinations)
         const estimatedDestination = unRatedDestination as unknown as DestinationWithEstimatedRating[]
 
@@ -33,13 +33,19 @@ class TensorFlowService {
      * @param ratedDestinations Rated destinations by the user these will be used to determine the estimated ratings.
      * @returns 
      */
-    private async performMachineLearning(unRatedDestination: Destination[], ratedDestinations: DestinationRatingWithDestination[]) {
+    private async performMachineLearning(unRatedDestination: DestinationForRating[], ratedDestinations: DestinationRatingWithDestination[]) {
         // Define a model for linear regression.
         const model = tf.sequential();
         model.add(tf.layers.dense({ units: 1, inputDim: 12 }));
+        const learningRate = 0.0001;
+        const optimizer = tf.train.sgd(learningRate);
 
         // Prepare the model for training: Specify the loss and the optimizer.
-        model.compile({ loss: 'meanSquaredError', optimizer: 'sgd' });
+        model.compile({
+            loss: "meanSquaredError",
+            optimizer: "sgd",
+            metrics: ["mse"]
+        });
         // Generate some synthetic data for training.
 
         const xs = tf.tensor2d(this.getPointsOfInterestsArray(ratedDestinations));
@@ -47,7 +53,7 @@ class TensorFlowService {
         const ys = tf.tensor2d(this.getRatingArray(ratedDestinations));
 
         // Train the model using the data.
-        await model.fit(xs, ys, { epochs: 50 })
+        await model.fit(xs, ys, { batchSize: 10, epochs: 1000 })
         const result = await model.predict(tf.tensor2d(this.getPointsOfInterestsArray(unRatedDestination))) as tf.Tensor
         return result.data()
     }
@@ -57,10 +63,10 @@ class TensorFlowService {
      * @param destinations The destinations we are trying to convert to stick into tensor flow. 
      * @returns {number[][]}
      */
-    private getPointsOfInterestsArray(destinations: Destination[]) {
+    private getPointsOfInterestsArray(destinations: DestinationForRating[]) {
         const destinationArray = []
         for (const destination of destinations) {
-            destinationArray.push([destination.hasAmusementPark ? 1 : 0, destination.hasArtisticsPlays ? 1 : 0, destination.hasArtisticsPlays ? 1 : 0, destination.hasBeach ? 1 : 0, destination.hasCasino ? 1 : 0, destination.hasMountains ? 1 : 0, destination.hasMuseum ? 1 : 0, destination.hasNightLife ? 1 : 0, destination.hasOutdoorActivities ? 1 : 0, destination.hasSkiing ? 1 : 0, destination.hasSportStadium ? 1 : 0, destination.hasZoo ? 1 : 0])
+            destinationArray.push([destination.aquariumCount / 100, destination.barResturantCount / 100, destination.casualResturantCount / 100, destination.fineResturantCount / 100, destination.gamblingCount / 100, destination.landMarkCount / 100, destination.museumCount / 100, destination.nightLifeCount / 100, destination.outDoorCount / 100, destination.skiingCount / 100, destination.theaterCount / 100, destination.zooCount / 100])
         }
         return destinationArray
     }

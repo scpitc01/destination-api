@@ -1,7 +1,7 @@
 import TensorFlow from '../services/tensorFlow'
 import UserDestinationRatingModel from '../models/userDestinationRating'
 import DestinationModel, { Destination } from '../models/destination'
-import { DestinationRatingWithDestination } from '../types/objects/destinationRating'
+import { DestinationForRating, DestinationRatingWithDestination, DestinationWithEstimatedRating } from '../types/objects/destinationRating'
 
 class DestinationRecommendationController {
     // Properties
@@ -29,7 +29,8 @@ class DestinationRecommendationController {
             result.rating = userRatings.find(rating => rating.destinationId === x._id.toString())?.rating ?? 0
             return result
         })
-        return await TensorFlow.determineNewDestinations(nonRatedResults, combinedRatedDestination)
+        const results = await TensorFlow.determineNewDestinations(nonRatedResults, combinedRatedDestination)
+        return results as DestinationWithEstimatedRating[]
     }
 
     /**
@@ -38,15 +39,71 @@ class DestinationRecommendationController {
      * @returns {UserDestinationRating[]} returns the users rating for thier destinations. 
      */
     private async getUserRatings(userId: string) {
-        return await UserDestinationRatingModel.find({ userId: userId })
+        return await UserDestinationRatingModel.find({ userId: userId }, null, { lean: true })
     }
 
     /**
      * @description finds all destinations from mongo and returns them to be put into the machine intelligence algorithm.
-     * @returns {Destination[]} Returns all avaliable destinations from the mongo database. 
+     * @returns {DestinationForRating[]} Returns all avaliable destinations from the mongo database. 
      */
     private async getDestinations() {
-        return await DestinationModel.find({}, '_id city state hasZoo hasSkiing hasCasino hasSportStadium hasMuseum hasNightLife hasAquarium hasBeach hasMountains hasOutdoorActivities hasArtisticsPlays hasAmusementPark')
+        let results = await DestinationModel.aggregate([
+            {
+                '$addFields': {
+                    'aquariumCount': {
+                        '$size': '$aquariumResults'
+                    },
+                    'landMarkCount': {
+                        '$size': '$landMarkResults'
+                    },
+                    'museumCount': {
+                        '$size': '$museumResults'
+                    },
+                    'skiingCount': {
+                        '$size': '$skiingResults'
+                    },
+                    'theaterCount': {
+                        '$size': '$theaterResults'
+                    },
+                    'nightLifeCount': {
+                        '$size': '$nightLifeResults'
+                    },
+                    'gamblingCount': {
+                        '$size': '$gamblingResults'
+                    },
+                    'outDoorCount': {
+                        '$size': '$outDoorResults'
+                    },
+                    'zooCount': {
+                        '$size': '$zooResults'
+                    }
+                }
+            }, {
+                '$project': {
+                    '_id': 1,
+                    'state': 1,
+                    'city': 1,
+                    'aquariumCount': 1,
+                    'landMarkCount': 1,
+                    'museumCount': 1,
+                    'skiingCount': 1,
+                    'theaterCount': 1,
+                    'nightLifeCount': 1,
+                    'gamblingCount': 1,
+                    'outDoorCount': 1,
+                    'zooCount': 1,
+                    'restaurantResults': 1
+                }
+            }
+        ]) as DestinationForRating[]
+        results = results.map(result => {
+            result.fineResturantCount = result.restaurantResults.filter(x => x.type === "Fine Dining").length
+            result.casualResturantCount = result.restaurantResults.filter(x => x.type === "Casual Dining").length
+            result.barResturantCount = result.restaurantResults.filter(x => x.type === "Bar or Pub").length
+            result.restaurantResults = []
+            return result
+        })
+        return results
     }
 }
 
