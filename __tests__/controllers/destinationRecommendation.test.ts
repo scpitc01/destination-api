@@ -15,7 +15,7 @@ describe('Destination Recommendation Controller', () => {
         const findDestinationRating = jest.fn().mockResolvedValue(destinationRatings)
         const serviceFindRating = jest.spyOn(UserDestinationRatingModel, 'find').mockImplementation(findDestinationRating)
         const findDestination = jest.fn().mockResolvedValue(destinations)
-        const serviceFindDestination = jest.spyOn(DestinationModel, 'find').mockImplementation(findDestination)
+        const serviceFindDestination = jest.spyOn(DestinationModel, 'aggregate').mockImplementation(findDestination)
         const tensorFlowEstimate = jest.fn().mockResolvedValue([{ estimatedRating: 3, _id: "TestId1" }])
         const serviceEstimate = jest.spyOn(TensorFlowService, 'determineNewDestinations').mockImplementation(tensorFlowEstimate)
 
