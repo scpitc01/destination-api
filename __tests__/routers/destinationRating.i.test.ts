@@ -83,6 +83,23 @@ describe('Destination Rating Router', () => {
         expect(serviceListRating).toHaveProperty('length')
     })
 
+    it('DELETE /destination/rating/:userId/:destinationId responds with a 200 tries to delete', async () => {
+        const deleteDestinationRating = jest.fn().mockResolvedValue(null)
+        const serviceDeleteRating = jest.spyOn(UserDestinationRatingModel, 'deleteOne').mockImplementation(deleteDestinationRating)
+        const authVerifyUser = jest.fn().mockResolvedValue(true)
+        const serviceVerifyUser = jest.spyOn(authenticationService, 'verifyUser').mockImplementation(authVerifyUser)
+        // Create a Supertest request instance
+        const request = supertest(server);
+
+        // Send a GET request to the specified route
+        const response = await request.delete('/destination/rating/testId/65e50a396c69ace0de368e13').send();
+
+        // Assert that the response status code is 200
+        expect(response.status).toBe(200)
+        expect(serviceDeleteRating).toHaveBeenCalled()
+        expect(serviceVerifyUser).toHaveBeenCalled()
+    })
+
     afterAll(async () => {
         // Close the Fastify server after all tests have finished
         await app.close()

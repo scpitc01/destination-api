@@ -9,6 +9,10 @@ export interface FindDestinationRatingRequest {
     params: FindDestinationRating
 }
 
+export interface DeleteDestinationRatingRequest {
+    params: FindDestinationRating
+}
+
 export interface ListDestinationRatingRequest {
     params: {
         userId: string

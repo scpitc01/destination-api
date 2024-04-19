@@ -113,6 +113,35 @@ export const findDestinationRatingObjectRequest = {
     },
 }
 
+export const deleteDestinationRatingObjectRequest = {
+    description: 'Delete destination rating object.',
+    tags: ['Destination Rating'],
+    security: [{ bearerAuth: [] }],
+    params: {
+        type: 'object',
+        properties: {
+            userId: {
+                type: 'string',
+                description: 'The mongo id for the user.'
+            },
+            destinationId: {
+                type: 'string',
+                description: 'The mongo id for the destination'
+            }
+        },
+        required: [
+            "userId",
+            "destinationId"
+        ]
+    },
+    response: {
+        200: {
+            description: 'Successful response',
+            type: 'object'
+        },
+    },
+}
+
 export const listDestinationRatingObjectRequest = {
     description: 'Lists destination rating object.',
     tags: ['Destination Rating'],

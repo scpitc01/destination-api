@@ -1,7 +1,7 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
 import DestinationRatingController from '../controllers/destinationRating'
-import { AddDestinationRatingRequest, FindDestinationRatingRequest, ListDestinationRatingRequest } from '../types/requests/destinationRating'
-import { addDestinationRatingObjectRequest, findDestinationRatingObjectRequest, listDestinationRatingObjectRequest } from '../swaggerSchemas/destinationRating'
+import { AddDestinationRatingRequest, FindDestinationRatingRequest, ListDestinationRatingRequest, DeleteDestinationRatingRequest } from '../types/requests/destinationRating'
+import { addDestinationRatingObjectRequest, deleteDestinationRatingObjectRequest, findDestinationRatingObjectRequest, listDestinationRatingObjectRequest } from '../swaggerSchemas/destinationRating'
 import authenticationService from '../services/authentication'
 
 
@@ -15,6 +15,11 @@ export default async function (app: FastifyInstance) {
         const body = request as AddDestinationRatingRequest
         authenticationService.verifyUser(body.body.userId, request.headers.authorization?.replace('Bearer ', '') ?? "")
         return await DestinationRatingController.updateDestinationRating(body.body)
+    })
+    app.delete('/:userId/:destinationId', { schema: deleteDestinationRatingObjectRequest }, async (request: FastifyRequest, reply: FastifyReply) => {
+        const body = request as DeleteDestinationRatingRequest
+        authenticationService.verifyUser(body.params.userId, request.headers.authorization?.replace('Bearer ', '') ?? "")
+        return await DestinationRatingController.deleteDestinationRating(body.params)
     })
     app.get('/:userId/:destinationId', { schema: findDestinationRatingObjectRequest }, async (request: FastifyRequest, reply: FastifyReply) => {
         const body = request as FindDestinationRatingRequest

@@ -44,6 +44,16 @@ class DestinationRatingController {
     }
 
     /**
+     * Deletes the userId and destination Id related mongo record.
+     * @param {FindDestinationRating} deleteRequest the destinationId and userId for the requested destination to delete the rating. 
+     * @returns {null} the mongo object found by the userId and destinationId
+     */
+    public async deleteDestinationRating(deleteRequest: FindDestinationRating) {
+        await UserDestinationRatingModel.deleteOne({ userId: deleteRequest.userId, destinationId: deleteRequest.destinationId })
+        return
+    }
+
+    /**
      * Lists all of the users rating as well as the the other information related to it.
      * @param userId The userId for the user we are looking for the combined records for. 
      */

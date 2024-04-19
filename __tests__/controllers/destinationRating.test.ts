@@ -53,4 +53,12 @@ describe('Destination Rating Controller', () => {
         expect(rating).toBeDefined()
         expect(serviceListRating).toHaveBeenCalled()
     })
+
+    it('deleteDestinationRating should try and delete a record', async () => {
+        const deleteDestinationRating = jest.fn().mockResolvedValue(null)
+        const serviceDeleteRating = jest.spyOn(UserDestinationRatingModel, 'deleteOne').mockImplementation(deleteDestinationRating)
+
+        await DestinationRatingController.deleteDestinationRating({ 'userId': 'TestId', destinationId: 'testId' })
+        expect(serviceDeleteRating).toHaveBeenCalled()
+    })
 })
